@@ -1,0 +1,10 @@
+Access Information for testing API
+
+username password role token
+
+coder 123 Admin 58a72c13079bee584af1172dd9e4983d39793278
+John fruitfly123 Crew ae735b61e26a238a3542eed2a66b28ecab4979de
+Bill applesauce123 Customer 59835cc28b13669c724faddd5cdf8c59fb289380
+Frank peachcobbler123 Customer 7b03df43fe3befba73fa7d0f7f233d7bb82937b1
+Autumn blueberrypie123 Manager 73a00fa6f5b788cab3297213212ae1e5a194f463 
+
