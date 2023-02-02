@@ -1,6 +1,7 @@
 # Django-API-Restaurant
 
-- A simple API project for the 'Little Lemon' restaurant the client application developers can use the APIs to develop web and mobile applications. - Users with different roles will be able to browse, add and edit menu items, place orders, browse orders, assign delivery crew to orders and finally deliver the orders. 
+- A simple API project for the 'Little Lemon' restaurant the client application developers can use the APIs to develop web and mobile applications. 
+- Users with different roles will be able to browse, add and edit menu items, place orders, browse orders, assign delivery crew to orders and finally deliver the orders. 
 
 ## Technologies Used
 
