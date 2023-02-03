@@ -1,7 +1,7 @@
 from .models import MenuItem, Category, Cart, Order, OrderItem
 from .serializers import MenuItemSerializers, CategorySerializer, ManagerSerializer, CartSerializer, OrdersSerializer
 from rest_framework import generics, status
-from .permissions import IsManager, IsDeliveryCrew, IsCustomer
+from .permissions import IsManager, IsDeliveryCrew, IsCustomer, IsAdminOrManager
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from django.contrib.auth.models import User, Group
 from rest_framework.response import Response
@@ -11,7 +11,7 @@ class PermissionsMixin:
     def get_permissions(self):
         permission_classes = [IsAuthenticatedOrReadOnly]
         if self.request.method != 'GET':
-            permission_classes = [IsAdminUser | IsManager]
+            permission_classes = [IsAdminOrManager]
         return [permission() for permission in permission_classes]
 
 class MenuItemListView(PermissionsMixin, generics.ListCreateAPIView):
@@ -40,7 +40,7 @@ class CategoryView(generics.ListCreateAPIView):
 class ManagersView(generics.ListCreateAPIView):
     queryset = User.objects.filter(groups__name='Managers')
     serializer_class = ManagerSerializer
-    permission_classes = [IsAdminUser | IsManager]
+    permission_classes = [IsAdminOrManager]
 
     def create(self, request):
         username = request.data.get('username')
@@ -55,7 +55,7 @@ class ManagersView(generics.ListCreateAPIView):
 
 class ManagerDeleteView(generics.DestroyAPIView):
     queryset = User.objects.filter(groups__name='Managers')
-    permission_classes = [IsAuthenticated, IsAdminUser | IsManager]
+    permission_classes = [IsAdminOrManager]
 
     def destroy(self, request, *args, **kwargs):
         user = self.get_object()

@@ -26,6 +26,9 @@ To run this API locally, follow these steps:
 7. Start the development server:
    `python manage.py runserver`
 
+## Test API
+- Use the access information in the `notes.txt`
+- Test endpoints using django restframework, [Insomnia](https://insomnia.rest/), or using `127.0.0.1:8000/admin`
 ## Many Ideas for future work
 - Mobile Apps for ordering food and delivery tracking.
 - Restaurant Management Systems for managing menu, orders, and payments.

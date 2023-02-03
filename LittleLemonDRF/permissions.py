@@ -19,3 +19,7 @@ class IsCustomer(BasePermission):
     def has_permission(self, request, view):
         # Is a customer if the authenticated user is not in a group
         return request.user.groups.count() == 0
+
+class IsAdminOrManager(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_staff or request.user.groups.filter(name='Managers').exists()
