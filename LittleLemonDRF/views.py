@@ -193,25 +193,26 @@ class SingleOrderView(generics.RetrieveUpdateDestroyAPIView):
             return Response(serialized_order.data, status.HTTP_200_OK)
         return Response({'message': 'You do not have permission to see this page!'}, status.HTTP_403_FORBIDDEN)
 
-    '''If the user making the request (request.user) is the
-     same as the delivery crew associated with the order (order.delivery_crew),
-      the order's status is updated to the value provided in the request data'''
     def partial_update(self, request, *args, **kwargs):
 
-        order = self.queryset.get(pk=kwargs['pk'])
+        # Try to retrieve order by primary key (pk) from queryset
+        try:
+            order = self.queryset.get(pk=kwargs['pk'])
+        except self.queryset.model.DoesNotExist:
+            return Response({'message': 'Order not found'}, status.HTTP_404_NOT_FOUND)
+
+        # If the user is a delivery crew, update only the status of the order
         if IsDeliveryCrew:
             order.status = request.data.get('status', order.status)
-            order.save()
-            serialized_order = self.get_serializer(order)
-            return Response(serialized_order.data, status.HTTP_200_OK)
+        # If the user is a manager or admin user, update both delivery crew and status of the order
         elif IsManager or IsAdminUser:
             order.delivery_crew = request.data.get('delivery_crew', order.delivery_crew)
             order.status = request.data.get('status', order.status)
-            order.save()
-            serialized_order = self.get_serializer(order)
-            return Response(serialized_order.data, status.HTTP_200_OK)
         else:
             return Response({'message': 'You do not have permission to perform this action!'}, status.HTTP_403_FORBIDDEN)
-
+        
+        order.save()
+        serialized_order = self.get_serializer(order)
+        return Response(serialized_order.data, status.HTTP_200_OK)
 
 
