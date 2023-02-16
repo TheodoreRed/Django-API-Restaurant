@@ -64,7 +64,6 @@ To run this API locally, follow these steps:
     NOTE a user token is required for all features of the API with the exception of registering and viewing the menu
 /api/menu-items
 -GET method:
-    ACCPETS PARAMS: ?perpage=5-50 | ?page=1 | ?search=title or category | (acsending order)?ordering=price, category | (decending order)?ordering=-price, category
     -from Anonomous:
         displays menu items rate limit set at two per minute
     -from Users and Managers and Superuser:
